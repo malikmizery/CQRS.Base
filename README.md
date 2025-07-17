@@ -62,7 +62,7 @@ public class GetUserQueryHandler : IQueryHandler<GetUserQuery, UserDto>
 In your `Program.cs` or `Startup.cs`:
 
 ```csharp
-using CqrsPattern;
+using CQRS.Base;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,4 +1,4 @@
-namespace CqrsPattern;
+namespace CQRS.Base;
 
 public interface ICommandHandler<in TCommand> where TCommand : ICommand
 {

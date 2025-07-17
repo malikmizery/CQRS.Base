@@ -1,4 +1,4 @@
-namespace CqrsPattern;
+namespace CQRS.Base;
 
 public sealed class Result<TResponse>
 {

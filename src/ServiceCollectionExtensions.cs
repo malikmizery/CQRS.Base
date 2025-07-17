@@ -1,7 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CqrsPattern;
+namespace CQRS.Base;
 
 public static class ServiceCollectionExtensions
 {

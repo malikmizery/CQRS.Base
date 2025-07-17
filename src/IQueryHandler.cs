@@ -1,4 +1,4 @@
-namespace CqrsPattern;
+namespace CQRS.Base;
 
 public interface IQueryHandler<in TQuery, TResponse> where TQuery : IQuery<TResponse>
 {
