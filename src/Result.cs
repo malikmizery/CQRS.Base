@@ -7,14 +7,14 @@ public sealed class Result
     public string ErrorMessage { get; }
     public IReadOnlyDictionary<string, string[]> Errors { get; }
 
-    private Result(bool isSuccess, string errorCode, string errorMessage)
+    internal Result(bool isSuccess, string errorCode, string errorMessage)
     {
         IsSuccess = isSuccess;
         ErrorCode = errorCode;
         ErrorMessage = errorMessage;
-        Errors = new Dictionary<string, string[]>().AsReadOnly();
+        Errors = new Dictionary<string, string[]>();
     }
-    private Result(bool isSuccess, string errorCode, string errorMessage, IReadOnlyDictionary<string, string[]> errors)
+    internal Result(bool isSuccess, string errorCode, string errorMessage, IReadOnlyDictionary<string, string[]> errors)
     {
         IsSuccess = isSuccess;
         ErrorCode = errorCode;
@@ -27,7 +27,15 @@ public sealed class Result
     public static Result Failure(string errorCode, string errorMessage) => new(false, errorCode, errorMessage);
     public static Result NotFound(string errorMessage) => new(false, "NotFound", errorMessage);
     public static Result NotFound(string errorMessage, IReadOnlyDictionary<string, string[]> errors) => new(false, "NotFound", errorMessage, errors);
-
     public static Result BadRequest(IReadOnlyDictionary<string, string[]> errors)
         => new(false, "ValidationError", "One or more validation errors occurred.", errors);
+
+
+    public static Result<TResponse> Success<TResponse>(TResponse value) => new(true, value, string.Empty, string.Empty);
+    public static Result<TResponse> Failure<TResponse>(string errorMessage) => new(false, default!, "Failure", errorMessage);
+    public static Result<TResponse> Failure<TResponse>(string errorCode, string errorMessage) => new(false, default!, errorCode, errorMessage);
+    public static Result<TResponse> NotFound<TResponse>(string errorMessage) => new(false, default!, "NotFound", errorMessage);
+    public static Result<TResponse> NotFound<TResponse>(string errorMessage, IReadOnlyDictionary<string, string[]> errors) => new(false, default!, "NotFound", errorMessage, errors);
+    public static Result<TResponse> BadRequest<TResponse>(IReadOnlyDictionary<string, string[]> errors)
+        => new(false, default!, "ValidationError", "One or more validation errors occurred.", errors);
 }
