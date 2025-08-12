@@ -32,4 +32,11 @@ public sealed class Result<TResponse>
         ErrorMessage = errorMessage;
         Errors = errors;
     }
+
+
+    public static implicit operator Result<TResponse>(TResponse value)
+    {
+        ArgumentNullException.ThrowIfNull(value);
+        return new Result<TResponse>(true, value);
+    }
 }
